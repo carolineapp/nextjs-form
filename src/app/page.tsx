@@ -1,4 +1,5 @@
 import Button from "../components/Button";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -10,7 +11,9 @@ export default function Home() {
           needs
         </h3>
       </div>
-      <Button href="consultation" text="Start Consultation" />
+      <Link href="consultation">
+        <Button text="Start Consultation" />
+      </Link>
     </>
   );
 }

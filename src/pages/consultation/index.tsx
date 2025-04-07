@@ -1,4 +1,5 @@
 import RootLayout from "@/app/layout";
+import Button from "../../components/Button";
 import submitResponses from "@/utils/submitResponses";
 
 import { Formik, Field, Form } from "formik";
@@ -45,25 +46,17 @@ const Consultation = () => {
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                   </Field>
-                  <button
-                    type="button"
-                    className="block mt-3 px-3 py-1 bg-teal-300"
-                    onClick={() => setActiveQuestion(index + 1)}
-                  >
-                    Next
-                  </button>
+                  <Button
+                    handleOnClick={() => setActiveQuestion(index + 1)}
+                    text="Next"
+                  />
                 </div>
               ))}
               {activeQuestion === Object.keys(questions).length &&
                 !complete && (
                   <>
                     <h3>You are all done! Please click submit</h3>
-                    <button
-                      type="submit"
-                      className="px-3 py-1 mt-3 bg-teal-300"
-                    >
-                      Submit
-                    </button>
+                    <Button type="submit" text="Submit" />
                   </>
                 )}
             </Form>
