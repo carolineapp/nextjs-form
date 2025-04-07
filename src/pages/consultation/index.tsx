@@ -5,13 +5,15 @@ import submitResponses from "@/utils/submitResponses";
 import { Formik, Field, Form } from "formik";
 import { useState } from "react";
 
-const questions = {
+const initialValues = {
   "Do you have a name?": "No",
   "Do you have a pet?": "No",
   "Do you have any medical conditions?": "No",
   "Are you on any medication?": "No",
   "Is this is a series of questions?": "No",
 };
+
+const questions = Object.keys(initialValues);
 
 const Consultation = () => {
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -27,22 +29,25 @@ const Consultation = () => {
       <h1>Consultation</h1>
       {!complete && (
         <Formik
-          initialValues={questions}
+          initialValues={initialValues}
           onSubmit={(values) => handleSubmit(values)}
         >
           {() => (
             <Form>
-              {Object.keys(questions).map((question, index) => (
+              {questions.map((question, index) => (
                 <div
                   className={`${
                     activeQuestion !== index && "hidden"
                   } columns-sm`}
                   key={question}
                 >
-                  <label>
-                    <span>{question}</span>{" "}
-                  </label>
-                  <Field component="select" id={index} name={question}>
+                  <label className="mr-2">{question}</label>
+                  <Field
+                    component="select"
+                    id={index}
+                    name={question}
+                    className="border border-gray-300 rounded-lg"
+                  >
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                   </Field>
@@ -52,18 +57,17 @@ const Consultation = () => {
                   />
                 </div>
               ))}
-              {activeQuestion === Object.keys(questions).length &&
-                !complete && (
-                  <>
-                    <h3>You are all done! Please click submit</h3>
-                    <Button type="submit" text="Submit" />
-                  </>
-                )}
+              {activeQuestion === questions.length && !complete && (
+                <>
+                  <h3>You are all done! Please click submit</h3>
+                  <Button type="submit" text="Submit" />
+                </>
+              )}
             </Form>
           )}
         </Formik>
       )}
-      {complete && <span>Thank you for submitting your responses</span>}
+      {complete && <p>Thank you for submitting your responses</p>}
     </RootLayout>
   );
 };
